@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Main = () => {
   const [countries, setCountries] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -16,6 +17,7 @@ const Main = () => {
         console.log("Error fetching countries: ", err);
       });
   }, []);
+
 
   return (
     <div>
@@ -48,25 +50,25 @@ const Main = () => {
       <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-16 py-6">
         {countries.map((country) => (
           <NavLink
-          key={country.name.common}
-            to="/onecard"
+            key={country.name.common}
+            to={`/onecard/${country.cca3}`}
             className="bg-white shadow rounded overflow-hidden"
           >
             <img
-              src="https://flagcdn.com/w320/de.png"
+              src={country.flags.png}
               alt="Germany"
               className="w-full h-40 object-cover"
             />
             <div className="p-4">
               <h2 className="font-bold text-lg mb-2">{country.name.common}</h2>
               <p>
-                <strong>Population:</strong> 81,770,900
+                <strong>Population:</strong> {country.population}
               </p>
               <p>
-                <strong>Region:</strong> Europe
+                <strong>Region:</strong> {country.region}
               </p>
               <p>
-                <strong>Capital:</strong> Berlin
+                <strong>Capital:</strong> {country.capital}
               </p>
             </div>
           </NavLink>

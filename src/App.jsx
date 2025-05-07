@@ -12,7 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main/>}/>
-          <Route path="onecard" element={<OneCard/>}/>
+          <Route path="/onecard/:id" element={<OneCard/>}/>
         </Routes>
       </BrowserRouter>
       <Footer />
