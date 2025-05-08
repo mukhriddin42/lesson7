@@ -10,7 +10,6 @@ const Main = () => {
     axios
       .get("https://restcountries.com/v3.1/all")
       .then((res) => {
-        console.log(res.data.slice(0, 20));
         setCountries(res.data.slice(0, 20));
       })
       .catch((err) => {
