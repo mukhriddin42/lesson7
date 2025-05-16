@@ -20,7 +20,7 @@ const OneCard = () => {
     return <div className="p-6 text-center">Loading...</div>;
   } else {
     return (
-      <div className="bg-gray-100 text-gray-900 px-16 py-6 min-h-screen">
+      <div className="pt-[120px] bg-gray-100 text-gray-900 px-16 py-6 min-h-screen">
         <NavLink
           to="/"
           href="#"

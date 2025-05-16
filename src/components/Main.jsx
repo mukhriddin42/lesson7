@@ -4,12 +4,14 @@ import axios from "axios";
 
 const Main = () => {
   const [countries, setCountries] = useState([]);
+  const [region, setRegion] = useState("All");
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get("https://restcountries.com/v3.1/all")
       .then((res) => {
+        console.log(res.data.slice(0, 20));
         setCountries(res.data.slice(0, 20));
       })
       .catch((err) => {
@@ -17,14 +19,22 @@ const Main = () => {
       });
   }, []);
 
+  let filteredCountries;
+  if (region === "All") {
+    filteredCountries = countries;
+  } else {
+    filteredCountries = countries.filter((country) => {
+      return country.region === region;
+    });
+  }
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center px-16 py-6 gap-4">
+      <div className="flex pt-[120px] flex-col md:flex-row justify-between items-start md:items-center px-16 py-6 gap-4">
         <div className="relative w-full md:w-1/4">
           <input
             placeholder="Search for a country..."
-            className="w-full px-5 py-3 pl-10 rounded shadow-sm border border-gray-300 focus:outline-none"
+            className="w-full px-5 py-2 pl-10 rounded shadow-sm border border-gray-300 focus:outline-none"
             type="text"
           />
           <span className="absolute left-3 top-3.5 text-gray-400">
@@ -33,7 +43,8 @@ const Main = () => {
         </div>
         <div className="relative">
           <select
-            className="px-4 py-3 rounded shadow-sm border border-gray-300 focus:outline-none"
+            onChange={(e) => setRegion(e.target.value)}
+            className="region-filter px-4 appearance-none py-2 rounded shadow-sm border border-gray-300 focus:outline-none"
             name=""
             id=""
           >
@@ -47,11 +58,11 @@ const Main = () => {
         </div>
       </div>
       <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-16 py-6">
-        {countries.map((country) => (
+        {filteredCountries.map((country) => (
           <NavLink
             key={country.name.common}
             to={`/onecard/${country.cca3}`}
-            className="bg-white shadow rounded overflow-hidden"
+            className="bg-white shadow-card rounded overflow-hidden"
           >
             <img
               src={country.flags.png}

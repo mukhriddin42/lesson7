@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+    --shadow-card: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+
+.region-filter {
+    background-image: url('../src/assets/icons/icons8-dropdown-30.png');
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1rem;
+    padding-right: 2rem;
+}
